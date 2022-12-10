@@ -17,7 +17,7 @@ namespace Team3
         public float3 MaxSpawnPos => _trackProperties.ValueRO.MaxSpawnPosition;
         public float3 MinSpawnPos => _trackProperties.ValueRO.MinSpawnPosition;
         public float ItemSpawnRate => _trackProperties.ValueRO.SpawnRate;
-        public int MaxSpawn => _trackProperties.ValueRO.MaxSpawnAmount;
+        public int MaxSpawnAmount => _trackProperties.ValueRO.MaxSpawnAmount;
         public Entity ItemPrefab => _trackProperties.ValueRO.ItemToSpawn;
         public float ItemSpawnTimer
         {
@@ -53,7 +53,6 @@ namespace Team3
         private float GetRandomScale( float min ) => _trackRandom.ValueRW.Value.NextFloat( min, 1f );
 
         public bool TimeToSpawnItem => ItemSpawnTimer <= 0f;
-
 
         /*    public LocalTransform GetZombieSpawnPoint()
             {

@@ -31,8 +31,10 @@ namespace Team3
             new SpawnItemJob
             {
                 DeltaTime = deltaTime,
-                ECB = ecbSingleton.CreateCommandBuffer( state.WorldUnmanaged )
+                ECB = ecbSingleton.CreateCommandBuffer( state.WorldUnmanaged ),
+                CurrentItemAmount = state.GetEntityQuery( ComponentType.ReadOnly<T_SpawnedItem>()).CalculateEntityCount(),
             }.Run();
+
         }
     }
 
@@ -41,6 +43,7 @@ namespace Team3
     {
         public float DeltaTime;
         public EntityCommandBuffer ECB;
+        public float CurrentItemAmount;
 
         [BurstCompile]
         private void Execute( A_TrackAspect track )
@@ -48,10 +51,14 @@ namespace Team3
             //MaxSpawn currently unused
             track.ItemSpawnTimer -= DeltaTime;
             if ( !track.TimeToSpawnItem ) return;
+            if ( CurrentItemAmount >= track.MaxSpawnAmount ) return;
+
+            track.ItemSpawnTimer = track.ItemSpawnRate;
 
             Entity newItem = ECB.Instantiate( track.ItemPrefab );
             LocalTransform randomTransform = track.GetRandomTransform();
             ECB.SetComponent( newItem, randomTransform );
+            ECB.AddComponent<T_SpawnedItem>(newItem);
         }
     }
 }
