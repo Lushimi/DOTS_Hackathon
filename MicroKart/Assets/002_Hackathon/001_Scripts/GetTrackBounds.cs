@@ -10,10 +10,27 @@ namespace Team3
         public static Vector3 TrackBoundsMax;
         public static Vector3 TrackBoundsMin;
 
+        public GameObject ExcludeParentObject;
+        public static Vector3 ExcludeBoundsMax;
+        public static Vector3 ExcludeBoundsMin;
+
         private void Awake()
         {
+            Bounds bounds = GetBounds( gameObject );
+            TrackBoundsMax = bounds.max;
+            TrackBoundsMin = bounds.min;
+
+            Bounds excludeBounds = GetBounds( ExcludeParentObject );
+            ExcludeBoundsMax = excludeBounds.max;
+            ExcludeBoundsMin = excludeBounds.min;
+/*            Debug.Log(TrackBoundsMax + " Min: " + TrackBoundsMin);
+            Debug.Log( ExcludeBoundsMax + " Min: " + ExcludeBoundsMin );*/
+        }
+
+        private Bounds GetBounds(GameObject obj) 
+        {
             Bounds bounds = new Bounds();
-            Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
 
             if ( renderers.Length > 0 )
             {
@@ -35,9 +52,7 @@ namespace Team3
                     }
                 }
             }
-            TrackBoundsMax = bounds.max;
-            TrackBoundsMin = bounds.min;
-            //Debug.Log(TrackBoundsMax + " Min: " + TrackBoundsMin);
+            return bounds;
         }
     }
     

@@ -16,6 +16,8 @@ namespace Team3
         private readonly RefRW<C_ItemSpawnTimer> _itemSpawnTimer;
         public float3 MaxSpawnPos => _trackProperties.ValueRO.MaxSpawnPosition;
         public float3 MinSpawnPos => _trackProperties.ValueRO.MinSpawnPosition;
+        public float3 ExcludeMaxSpawnPos => _trackProperties.ValueRO.ExcludeMaxSpawnPosition;
+        public float3 ExcludeMinSpawnPos => _trackProperties.ValueRO.ExcludeMinSpawnPosition;
         public float ItemSpawnRate => _trackProperties.ValueRO.SpawnRate;
         public int MaxSpawnAmount => _trackProperties.ValueRO.MaxSpawnAmount;
         public Entity ItemPrefab => _trackProperties.ValueRO.ItemToSpawn;
@@ -37,15 +39,18 @@ namespace Team3
 
         public float3 GetRandomPosition()
         {
+            bool excludeVolumeCheck = false;
             float3 randomPosition;
-            /* SPAWN HERE
-             * do
+            do
             {
-
-            }*/
-            //while ( AREAS TO REJECT );
-
-            randomPosition = _trackRandom.ValueRW.Value.NextFloat3( MinSpawnPos, MaxSpawnPos );
+                randomPosition = _trackRandom.ValueRW.Value.NextFloat3( MinSpawnPos, MaxSpawnPos );
+                bool3 cond1 = ExcludeMinSpawnPos <= randomPosition;                
+                bool3 cond2 = randomPosition <= ExcludeMaxSpawnPos;
+                excludeVolumeCheck = cond1.x == true && cond1.z == true && cond2.x == true && cond2.z == true;
+            }
+            while ( excludeVolumeCheck );
+            var heightToSpawn = 1f;
+            randomPosition.y = heightToSpawn;
             return randomPosition;
         }
 

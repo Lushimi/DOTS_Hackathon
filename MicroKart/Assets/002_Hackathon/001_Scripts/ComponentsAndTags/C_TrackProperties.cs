@@ -7,6 +7,8 @@ namespace Team3
     {
         public float3 MinSpawnPosition;
         public float3 MaxSpawnPosition;
+        public float3 ExcludeMinSpawnPosition;
+        public float3 ExcludeMaxSpawnPosition;
         public int MaxSpawnAmount;
         public Entity ItemToSpawn;
         public float SpawnRate;

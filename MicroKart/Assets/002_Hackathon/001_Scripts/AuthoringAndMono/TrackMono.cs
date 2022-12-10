@@ -11,6 +11,8 @@ namespace Team3
         public GameObject ItemToSpawn;
         public Vector3 TrackBoundsMin => GetTrackBounds.TrackBoundsMin;
         public Vector3 TrackBoundsMax => GetTrackBounds.TrackBoundsMax;
+        public Vector3 ExcludeBoundsMax => GetTrackBounds.ExcludeBoundsMax;
+        public Vector3 ExcludeBoundsMin => GetTrackBounds.ExcludeBoundsMin;
         public int MaxSpawnAmount;
         public float SpawnRate;
         public uint RandomSeed;
@@ -27,6 +29,8 @@ namespace Team3
                 MaxSpawnAmount = authoring.MaxSpawnAmount,
                 MinSpawnPosition = authoring.TrackBoundsMin,
                 MaxSpawnPosition = authoring.TrackBoundsMax,
+                ExcludeMinSpawnPosition = authoring.ExcludeBoundsMin,
+                ExcludeMaxSpawnPosition = authoring.ExcludeBoundsMax,
                 SpawnRate = authoring.SpawnRate
             } );
             //Debug.Log( authoring.TrackBoundsMin + " Max: " + authoring.TrackBoundsMax );

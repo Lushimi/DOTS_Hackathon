@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemToSpawn: {fileID: 4810912518991602691, guid: 19954de30401f73428254541a9ad156e,
     type: 3}
-  MaxSpawnAmount: 500
+  MaxSpawnAmount: 52
   SpawnRate: 0.1
   RandomSeed: 0
 --- !u!4 &717175020
